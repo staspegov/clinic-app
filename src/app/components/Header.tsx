@@ -42,7 +42,7 @@ export default function Header() {
           <a href="#" className="block text-gray-700 hover:text-blue-600">Estudios</a>
           <a href="#" className="block text-gray-700 hover:text-blue-600">Testimonios</a>
           <a href="#" className="block text-gray-700 hover:text-blue-600">Noticias</a>
-          <button className="w-full bg-blue-600 text-white py-2 rounded">Agendar ahora</button>
+          <button className="w-full bg-blue-600 text-white py-2 rounded">WhatsApp Button</button>
         </div>
       )}
     </header>
