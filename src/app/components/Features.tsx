@@ -14,7 +14,7 @@ export default function Features() {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-blue-600 mb-2">Convenient Scheduling</h3>
-            <p className="text-gray-600">Flexible appointments that work with your schedule.</p>
+            <p className="text-gray-600">Flexible nice appointments that work with your schedule.</p>
           </div>
         </div>
       </div>
