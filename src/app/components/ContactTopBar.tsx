@@ -5,10 +5,14 @@ export default function TopBar() {
     <div className="bg-white border-b text-sm text-gray-700 hidden md:block">
       <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex space-x-6">
-          <a href="#" className="hover:text-blue-600">About</a>
-          <a href="#" className="hover:text-blue-600">Doctors</a>
-          <a href="#" className="hover:text-blue-600">Contact</a>
-          <a href="#" className="hover:text-blue-600">FAQ</a>
+          <a
+            href="https://www.google.com/maps?q=Antonio+Varas+2740,+7770484+Ñuñoa,+Región+Metropolitana"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            Antonio Varas 2740, Ñuñoa, RM
+          </a>
         </div>
         <div className="flex space-x-6 items-center">
           <div className="flex items-center space-x-1">

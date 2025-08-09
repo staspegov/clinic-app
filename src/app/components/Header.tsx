@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // You can use any icon library
+import Link from 'next/link';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,17 +16,23 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="space-x-6 hidden md:flex">
-          <a href="#" className="text-gray-700 hover:text-blue-600">Inicio</a>
-          <a href="#" className="text-gray-700 hover:text-blue-600">Nosotros</a>
-          <a href="#" className="text-gray-700 hover:text-blue-600">Nuestro Equipo</a>
-          <a href="#" className="text-gray-700 hover:text-blue-600">Estudios</a>
+          
+        
+          <a href="#" className="text-gray-700 hover:text-blue-600">Especialidades</a>
           <a href="#" className="text-gray-700 hover:text-blue-600">Testimonios</a>
           <a href="#" className="text-gray-700 hover:text-blue-600">Noticias</a>
+          <a href="#" className="text-gray-700 hover:text-blue-600">Quienes somos</a>
         </nav>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hidden md:inline">
-          Agendar ahora
-        </button>
+        
+
+<Link
+  href="/contact-us"
+  className="bg-blue-600 text-white px-4 py-2 rounded hidden md:inline hover:bg-blue-700 transition"
+>
+  Reserva tu cita
+</Link>
+
 
         {/* Mobile Hamburger Icon */}
         <button onClick={toggleMenu} className="md:hidden text-blue-700">

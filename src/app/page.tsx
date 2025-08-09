@@ -5,13 +5,13 @@ import Hero from '@/app/components/Hero';
 import Features from '@/app/components/Features';
 import Stats from '@/app/components/Stats';
 import About from '@/app/components/About';
-import Services from '@/app/components/Services';
-import Gallery from '@/app/components/Gallery';
-import Pricing from '@/app/components/Pricing';
+import Testimonios from '@/app/components/Testimonios';
+import Info from '@/app/components/Info';
 import News from '@/app/components/News';
 import AppointmentForm from '@/app/components/AppointmentForm';
 import Footer from '@/app/components/Footer';
 import ContactTopBar from '@/app/components/ContactTopBar';
+import OurClient from '@/app/components/OurClients'
 
 export default function HomePage() {
   return (
@@ -19,13 +19,13 @@ export default function HomePage() {
       <ContactTopBar/>
       <Header />
       <Hero/>
+      <OurClient/>
       <Features/>
       <Stats/>
       <About/>
-      <Services/>
-      <Gallery/>
-      <Pricing/>
+      <Testimonios/>
       <News/>
+      <Info/>
       <AppointmentForm/>
       <Footer/>
     </div>

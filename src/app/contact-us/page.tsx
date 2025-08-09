@@ -142,7 +142,7 @@ export default function ContactPage() {
         {/* Form */}
         <div className="lg:col-span-2">
           <form onSubmit={onSubmit} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Envíanos un mensaje</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Agenda tu evaluación médica</h2>
             <p className="mt-1 text-sm text-slate-600">Responderemos lo antes posible.</p>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
