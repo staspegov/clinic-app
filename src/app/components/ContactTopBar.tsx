@@ -2,7 +2,11 @@ import { Phone, Mail } from 'lucide-react';
 
 export default function TopBar() {
   return (
-    <div className="bg-white border-b text-sm text-gray-700 hidden md:block">
+  <div className="bg-white border-b border-gray-100 text-sm text-gray-700 hidden md:block">
+
+  {/* contenido */}
+
+
       <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex space-x-6">
           <a
@@ -25,6 +29,8 @@ export default function TopBar() {
           </div>
         </div>
       </div>
+      
     </div>
+    
   );
 }

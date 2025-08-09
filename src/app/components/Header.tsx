@@ -10,7 +10,7 @@ export default function Header() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="bg-white border-b shadow-sm">
+    <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <div className="text-xl font-bold text-blue-700">CimerChile</div>
 
@@ -43,12 +43,11 @@ export default function Header() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
-          <a href="#" className="block text-gray-700 hover:text-blue-600">Inicio</a>
-          <a href="#" className="block text-gray-700 hover:text-blue-600">Nosotros</a>
-          <a href="#" className="block text-gray-700 hover:text-blue-600">Nuestro Equipo</a>
-          <a href="#" className="block text-gray-700 hover:text-blue-600">Estudios</a>
+          <a href="#" className="block text-gray-700 hover:text-blue-600">Especialidades</a>
           <a href="#" className="block text-gray-700 hover:text-blue-600">Testimonios</a>
           <a href="#" className="block text-gray-700 hover:text-blue-600">Noticias</a>
+          <a href="#" className="block text-gray-700 hover:text-blue-600">Estudios</a>
+          <a href="#" className="block text-gray-700 hover:text-blue-600">Quienes somos</a>
           <button className="w-full bg-blue-600 text-white py-2 rounded">WhatsApp Button</button>
         </div>
       )}

@@ -15,7 +15,7 @@ const LOGOS: Logo[] = [
 export default function BrandMarquee() {
   const items = [...LOGOS, ...LOGOS]; // duplicado para loop continuo
   return (
-    <section className="py-2 bg-white">
+    <section className="py-2 bg-white ">
       <div className="max-w-7xl mx-auto px-4">
         <div className="relative overflow-hidden">
           <div className="flex gap-10 animate-[marquee_20s_linear_infinite] hover:[animation-play-state:paused]">

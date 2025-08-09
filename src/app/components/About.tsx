@@ -4,7 +4,7 @@ export default function EspecialidadRespiratorio() {
   const respiratorio = {
     title: 'Respiratorio',
     subtitle: 'Asma, EPOC y enfermedades pulmonares intersticiales.',
-    image: '/doctor.png', // Cambia por tu imagen real
+    image: '/lungs2.webp', // Cambia por tu imagen real
     bullets: [
       'Espirometría y DLCO',
       'Imagenología de alta resolución',
@@ -36,7 +36,7 @@ export default function EspecialidadRespiratorio() {
             <img
               src={respiratorio.image}
               alt={respiratorio.title}
-              className="h-[360px] w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+              className="h-f w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
             />
             <div className="absolute bottom-5 left-5 right-5">
               <div className="bg-white/90 backdrop-blur rounded-xl p-5 shadow-lg">

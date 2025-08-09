@@ -21,12 +21,14 @@ export default function HomePage() {
       <Hero/>
       <OurClient/>
       <Features/>
+      
       <Stats/>
       <About/>
       <Testimonios/>
       <News/>
       <Info/>
       <AppointmentForm/>
+      
       <Footer/>
     </div>
   )

@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <section
-      className="py-12 md:py-20 min-h-[300px] md:min-h-[auto]"
+      className="py-12 md:py-20 min-h-[350px] md:min-h-[500px] lg:min-h-[500px] flex items-center"
       style={{
         background: `
           radial-gradient(circle at 20% 30%, rgba(173, 216, 230, 0.4), transparent 50%),
@@ -11,7 +11,7 @@ export default function Hero() {
         `,
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center h-full">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center h-full gap-8">
         
         {/* Texto */}
         <div className="w-full md:w-1/2">
@@ -32,11 +32,11 @@ export default function Hero() {
         </div>
 
         {/* Imagen */}
-        <div className="w-full md:w-1/2 hidden md:block">
+        <div className="w-full md:w-1/2 hidden md:flex justify-center">
           <img
-            src="/doctor.png"
+            src="/banner.webp"
             alt="Doctor"
-            className="rounded-lg shadow-lg"
+            className="rounded-lg shadow-lg max-h-[400px] object-contain"
           />
         </div>
 
