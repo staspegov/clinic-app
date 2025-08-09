@@ -8,7 +8,7 @@ export default function Stats() {
         </div>
         <div>
           <p className="text-4xl font-bold">120+</p>
-          <p className="text-sm mt-2">Estudios Clínicos Realizados</p>
+          <p className="text-sm mt-2">Estudios Realizados</p>
         </div>
         <div>
           <p className="text-4xl font-bold">15+</p>
