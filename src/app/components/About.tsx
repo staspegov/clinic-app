@@ -18,7 +18,7 @@ export default function EspecialidadRespiratorio() {
         {/* Headline */}
         <div className="text-center max-w-3xl mx-auto">
           <span className="inline-flex items-center gap-2 text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide">
-            Especialidad
+            Especialidadd
           </span>
           <h2 className="mt-3 md:mt-4 text-2xl md:text-4xl font-bold text-slate-900">
             Área Respiratoria en CIMER
