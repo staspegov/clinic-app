@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Footer from '@/app/components/Footer'
 
 // ====== CONFIG (edit these to your real info) ======
 const ORG_NAME = 'CeCim – Centro de Estudios Clínicos';
@@ -204,15 +205,8 @@ export default function ContactPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 py-10 text-slate-300">
-        <div className="mx-auto max-w-7xl px-4 text-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="flex items-center gap-2 font-semibold text-white">{ORG_NAME}</div>
-            <div className="text-slate-400">{CITY}, {REGION} · {COUNTRY}</div>
-          </div>
-        </div>
-      </footer>
 
+<Footer/>
       {/* SEO JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </div>

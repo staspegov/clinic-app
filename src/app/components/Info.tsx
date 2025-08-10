@@ -2,7 +2,7 @@
 export default function AboutUs() {
   return (
     <section id="aboutus" className="py-20 bg-gradient-to-b from-white via-emerald-50/40 to-white">
-     <div className="relative my-0 mb-40 ">
+     <div className="relative my-0 mb-20 lg:mb-40 ">
   <div className="absolute inset-0 flex items-center">
     <div className="w-full border-t border-transparent bg-gradient-to-r from-transparent via-emerald-200 to-transparent h-[2px]" />
   </div>
@@ -16,7 +16,7 @@ export default function AboutUs() {
             alt="Equipo médico de CIMER"
             className="rounded-2xl shadow-xl object-cover w-full h-[420px]"
           />
-          <div className="absolute -bottom-6 -left-6 bg-emerald-600 text-white p-6 rounded-2xl shadow-lg max-w-[240px]">
+          <div className="absolute -bottom-6 -left-6 bg-emerald-600  rounded-r-2xl text-white p-6 lg:rounded-2xl shadow-lg max-w-[240px]">
             <p className="text-4xl font-bold">15+</p>
             <p className="text-sm">Años de experiencia en investigación clínica</p>
           </div>

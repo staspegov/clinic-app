@@ -27,13 +27,13 @@ export default function Hero() {
           <div className="flex space-x-3 md:space-x-4">
             <Link
               href="/contact-us"
-              className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 md:px-6 md:py-2 rounded-lg shadow-md text-xs md:text-base"
+              className="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 md:px-6 md:py-2 rounded-lg shadow-md text-sm md:text-base"
             >
               Evaluación gratuita
             </Link>
             <Link
               href="/studies"
-              className="border border-blue-700 text-blue-700 hover:bg-blue-50 px-4 py-1.5 md:px-6 md:py-2 rounded-lg shadow-md text-xs md:text-base"
+              className="border border-blue-700 text-blue-700 hover:bg-blue-50 px-5 py-2 md:px-6 md:py-2 rounded-lg shadow-md text-sm md:text-base"
             >
               Postular a un estudio
             </Link>
