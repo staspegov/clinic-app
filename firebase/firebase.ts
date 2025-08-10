@@ -1,17 +1,16 @@
-// firebase/firebase.ts (or src/lib/firebase.ts)
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics, isSupported, type Analytics } from "firebase/analytics";
 
-// --- Config ---
+// --- Config from environment variables ---
 const firebaseConfig = {
-  apiKey: "AIzaSyBc6eo2ZbzlC-3TSjivEkYRFIbSAyLv7i4",
-  authDomain: "cimerchile.firebaseapp.com",
-  projectId: "cimerchile",
-  storageBucket: "cimerchile.firebasestorage.app",
-  messagingSenderId: "648750161267",
-  appId: "1:648750161267:web:a074f85e7c9547010bb906",
-  measurementId: "G-D760ZW4CTK",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
 };
 
 // --- App (singleton, safe for HMR) ---
@@ -23,20 +22,18 @@ const db = getFirestore(app);
 // --- Analytics (browser-only, optional) ---
 let analytics: Analytics | null = null;
 if (typeof window !== "undefined") {
-  // Guard for SSR
   isSupported()
     .then((supported) => {
       if (supported) {
-        // getAnalytics must run in browser context
         analytics = getAnalytics(app);
       }
     })
     .catch(() => {
-      // ignore analytics init errors silently
+      // silently ignore analytics errors
     });
 }
 
-// Optional helper if you want to read it later without importing types everywhere
+// Helper to access analytics later
 export const getAnalyticsInstance = () => analytics;
 
 export { app, db, analytics };

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { adminDb } from '../../../../firebase/firebaseAdmin'; // ✅ Corrected path
+import { adminDb } from '../../../../firebase/firebaseAdmin'; // Adjust if needed
 
 type Lead = {
   name: string;
@@ -47,19 +47,19 @@ export async function POST(req: Request) {
 
     const { csv, tsv, createdAt } = toCSV({ name, email, phone, message });
 
-    // Gmail SMTP transporter (works better than service: 'gmail')
+    // Create transporter with environment variables
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for 587
       auth: {
-        user: 'atencionalclientecimerchile@gmail.com',
-        pass: 'CimerChile2025-', // ⚠️ Keep secure
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
-    const FROM = 'CeCim <atencionalclientecimerchile@gmail.com>';
-    const ADMIN = 'atencionalclientecimerchile@gmail.com';
+    const FROM = process.env.SMTP_FROM!;
+    const ADMIN = process.env.ADMIN_EMAIL!;
 
     // Email to client
     await transporter.sendMail({
