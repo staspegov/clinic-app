@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { adminDb } from '../../../../firebase/firebaseAdmin'; // Adjust if needed
+import { adminDb } from '../../../../firebase/firebaseAdmin';
 
 type Lead = {
   name: string;
@@ -26,20 +26,29 @@ function toCSV(lead: Lead) {
   };
 }
 
+function requiredEnv(name: string) {
+  const v = process.env[name];
+  if (!v || !String(v).trim()) throw new Error(`Missing env: ${name}`);
+  return String(v).trim();
+}
+
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as Partial<Lead>;
-    const { name, email, phone, message } = body;
+    const raw = (await req.json()) as Partial<Lead>;
+    const name = (raw.name ?? '').trim();
+    const email = (raw.email ?? '').trim();
+    const phone = (raw.phone ?? '').trim();
+    const message = (raw.message ?? '').trim();
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Save to Firestore
+    // Save to Firestore first (so we don’t lose the lead if email fails)
     const docRef = await adminDb.collection('leads').add({
       name,
       email,
-      phone: phone ?? '',
+      phone,
       message,
       createdAt: new Date(),
       source: 'contact-api',
@@ -47,24 +56,48 @@ export async function POST(req: Request) {
 
     const { csv, tsv, createdAt } = toCSV({ name, email, phone, message });
 
-    // Create transporter with environment variables
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for 587
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    // --- SMTP / Transport ---
+    // These are required; throw a 400 if they’re not present to avoid a 500 crash.
+    let transporter;
+    try {
+      const host = requiredEnv('SMTP_HOST');
+      const portStr = requiredEnv('SMTP_PORT');
+      const user = requiredEnv('SMTP_USER');
+      const pass = requiredEnv('SMTP_PASS');
+      const port = Number(portStr);
+      transporter = nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465,
+        auth: { user, pass },
+      });
+      // Optional: verify connection (useful while setting up)
+      await transporter.verify().catch(() => {});
+    } catch (e) {
+      console.error('SMTP CONFIG ERROR:', e);
+      return NextResponse.json(
+        { error: 'Email transport not configured' },
+        { status: 400 }
+      );
+    }
 
-    const FROM = process.env.SMTP_FROM!;
-    const ADMIN = process.env.ADMIN_EMAIL!;
+    const FROM = (process.env.SMTP_FROM ?? process.env.SMTP_USER ?? '').trim();
+    if (!FROM) {
+      return NextResponse.json(
+        { error: 'Missing sender address (SMTP_FROM/SMTP_USER)' },
+        { status: 400 }
+      );
+    }
 
-    // Email to client
+    // Resolve admin recipient (optional). We’ll skip admin mail if not set.
+    const ADMIN =
+      (process.env.ADMIN_EMAIL ?? process.env.CONTACT_EMAIL ?? '').trim() || null;
+
+    // --- Send confirmation to client ---
     await transporter.sendMail({
       from: FROM,
-      to: email,
+      to: email,               // this is safe; we validated `email`
+      replyTo: email,          // so you can reply from your inbox
       subject: 'Gracias por contactarnos – CeCim',
       text:
         `Hola ${name},\n\n` +
@@ -80,40 +113,47 @@ export async function POST(req: Request) {
         `<p>CeCim – Centro de Estudios Clínicos</p>`,
     });
 
-    // Email to admin
-    await transporter.sendMail({
-      from: FROM,
-      to: ADMIN,
-      subject: `Nuevo lead (${name}) – CeCim`,
-      text:
-        `Nuevo lead recibido (${createdAt}).\n\n` +
-        `Nombre: ${name}\nCorreo: ${email}\nTeléfono: ${phone || '-'}\nMensaje: ${message}\n` +
-        `Doc ID: ${docRef.id}\n\n` +
-        `--- COPIAR EN EXCEL (TSV) ---\n` +
-        tsv,
-      html:
-        `<p><b>Nuevo lead</b> (${createdAt})</p>` +
-        `<ul>` +
-        `<li><b>Nombre:</b> ${name}</li>` +
-        `<li><b>Correo:</b> ${email}</li>` +
-        `<li><b>Teléfono:</b> ${phone || '-'}</li>` +
-        `<li><b>Mensaje:</b> ${message}</li>` +
-        `<li><b>Doc ID:</b> ${docRef.id}</li>` +
-        `</ul>` +
-        `<p><b>Copiar en Excel (TSV):</b></p>` +
-        `<pre style="background:#f6f8fa;padding:12px;border-radius:8px;white-space:pre-wrap;">${tsv}</pre>`,
-      attachments: [
-        {
-          filename: `lead-${docRef.id}.csv`,
-          content: csv,
-          contentType: 'text/csv',
-        },
-      ],
-    });
+    // --- Send notification to admin (only if ADMIN is defined) ---
+    if (ADMIN) {
+      await transporter.sendMail({
+        from: FROM,
+        to: ADMIN,            // if this were undefined, Nodemailer throws EENVELOPE
+        subject: `Nuevo lead (${name}) – CeCim`,
+        text:
+          `Nuevo lead recibido (${createdAt}).\n\n` +
+          `Nombre: ${name}\nCorreo: ${email}\nTeléfono: ${phone || '-'}\nMensaje: ${message}\n` +
+          `Doc ID: ${docRef.id}\n\n` +
+          `--- COPIAR EN EXCEL (TSV) ---\n` +
+          tsv,
+        html:
+          `<p><b>Nuevo lead</b> (${createdAt})</p>` +
+          `<ul>` +
+          `<li><b>Nombre:</b> ${name}</li>` +
+          `<li><b>Correo:</b> ${email}</li>` +
+          `<li><b>Teléfono:</b> ${phone || '-'}</li>` +
+          `<li><b>Mensaje:</b> ${message}</li>` +
+          `<li><b>Doc ID:</b> ${docRef.id}</li>` +
+          `</ul>` +
+          `<p><b>Copiar en Excel (TSV):</b></p>` +
+          `<pre style="background:#f6f8fa;padding:12px;border-radius:8px;white-space:pre-wrap;">${tsv}</pre>`,
+        attachments: [
+          {
+            filename: `lead-${docRef.id}.csv`,
+            content: csv,
+            contentType: 'text/csv',
+          },
+        ],
+      });
+    } else {
+      console.warn('ADMIN_EMAIL/CONTACT_EMAIL not set. Skipping admin notification email.');
+    }
 
     return NextResponse.json({ ok: true, id: docRef.id });
   } catch (err) {
     console.error('CONTACT API ERROR', err);
-    return NextResponse.json({ error: 'Internal error', details: (err as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal error', details: (err as Error).message },
+      { status: 500 }
+    );
   }
 }
