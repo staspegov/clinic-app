@@ -1,7 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Footer from '@/app/components/Footer'
+import Footer from '@/app/components/Footer';
+import { db } from '../../../firebase/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 
 // ====== CONFIG (edit these to your real info) ======
 const ORG_NAME = 'CeCim – Centro de Estudios Clínicos';
@@ -16,8 +19,7 @@ const HOURS = [
   ['Sáb', '10:00 – 14:00'],
   ['Dom', 'Cerrado'],
 ];
-// If you know them, set precise coords; otherwise it will still work with the query-based map
-const LAT = -33.447; // approx Santiago
+const LAT = -33.447;
 const LNG = -70.66;
 // ================================================
 
@@ -63,16 +65,17 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('loading');
     try {
-      // Example: POST to your API route. Replace '/api/contact' with your endpoint
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error('Request failed');
+     await addDoc(collection(db, 'leads'), {
+  name: form.name,
+  email: form.email,
+  phone: form.phone,
+  message: form.message,
+  createdAt: serverTimestamp(), // this will be replaced by Firestore server time
+});
       setStatus('success');
       setForm({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
+      console.error(err);
       setStatus('error');
     }
   };
@@ -84,7 +87,9 @@ export default function ContactPage() {
         <div className="backdrop-brightness-50">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:py-24">
             <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">Contáctanos</h1>
-            <p className="mt-3 max-w-2xl text-blue-100">Estamos en {CITY}. Escríbenos o visítanos en nuestra sede.</p>
+            <p className="mt-3 max-w-2xl text-blue-100">
+              Estamos en {CITY}. Escríbenos o visítanos en nuestra sede.
+            </p>
           </div>
         </div>
       </section>
@@ -136,7 +141,9 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="mt-2 text-xs text-slate-500">Si no ves el mapa, verifica que tu navegador permita contenidos embebidos.</p>
+            <p className="mt-2 text-xs text-slate-500">
+              Si no ves el mapa, verifica que tu navegador permita contenidos embebidos.
+            </p>
           </div>
         </aside>
 
@@ -205,8 +212,7 @@ export default function ContactPage() {
       </section>
 
       {/* FOOTER */}
-
-<Footer/>
+      <Footer />
       {/* SEO JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </div>
