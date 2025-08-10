@@ -1,6 +1,9 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section
+      id="hero"
       className="py-12 md:py-20 min-h-[350px] md:min-h-[500px] lg:min-h-[500px] flex items-center"
       style={{
         background: `
@@ -21,13 +24,19 @@ export default function Hero() {
           <p className="text-gray-800 mb-6">
             <span className="font-bold">CIMER:</span> Comprometidos con tu salud y la investigación médica
           </p>
-          <div className="flex space-x-4">
-            <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded-lg shadow-md text-sm md:text-base">
+          <div className="flex space-x-3 md:space-x-4">
+            <Link
+              href="/contact-us"
+              className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1.5 md:px-6 md:py-2 rounded-lg shadow-md text-xs md:text-base"
+            >
               Evaluación gratuita
-            </button>
-            <button className="border border-blue-700 text-blue-700 hover:bg-blue-50 px-6 py-2 rounded-lg shadow-md text-sm md:text-base">
+            </Link>
+            <Link
+              href="/studies"
+              className="border border-blue-700 text-blue-700 hover:bg-blue-50 px-4 py-1.5 md:px-6 md:py-2 rounded-lg shadow-md text-xs md:text-base"
+            >
               Postular a un estudio
-            </button>
+            </Link>
           </div>
         </div>
 

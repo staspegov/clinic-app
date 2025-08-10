@@ -37,7 +37,7 @@ const TESTIMONIALS: Testimonial[] = [
 
 export default function Testimonials() {
   return (
-    <section className="py-12 md:py-20 from-emerald-50/60 via-white to-white">
+    <section id="testimonios" className="py-12 md:py-20 from-emerald-50/60 via-white to-white">
       {/* Divider */}
       <div className="relative mb-10 md:mb-20">
         <div className="absolute inset-0 flex items-center">

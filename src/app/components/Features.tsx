@@ -53,7 +53,7 @@ export default function ClinicalStudiesList() {
   );
 
   return (
-    <section className="py-8 md:py-12 bg-gray-50">
+    <section id="estudios" className="py-8 md:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* Título + CTA ver todos */}
         <div className="mb-6 md:mb-8 flex items-center justify-between gap-3">

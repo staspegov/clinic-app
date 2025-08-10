@@ -13,7 +13,7 @@ export default function EspecialidadRespiratorio() {
   };
 
   return (
-    <section className="py-12 md:py-20 from-emerald-50/60 via-white to-white">
+    <section id="features" className="py-12 md:py-20 from-emerald-50/60 via-white to-white">
       <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* Headline */}
         <div className="text-center max-w-3xl mx-auto">
