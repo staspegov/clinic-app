@@ -2,7 +2,7 @@
 export default function AboutUs() {
   return (
     <section className="py-20 bg-gradient-to-b from-white via-emerald-50/40 to-white">
-     <div className="relative my-20 mb-40 ">
+     <div className="relative my-0 mb-40 ">
   <div className="absolute inset-0 flex items-center">
     <div className="w-full border-t border-transparent bg-gradient-to-r from-transparent via-emerald-200 to-transparent h-[2px]" />
   </div>
