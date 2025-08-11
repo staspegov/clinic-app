@@ -75,6 +75,56 @@ export default function RootLayout({
 
         {/* Bing verification meta tag */}
         <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
+
+        {/* LocalBusiness Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "@id": "https://cimerchile.cl/#localbusiness",
+              name: "CIMER Chile",
+              description:
+                "Líderes en investigación clínica, estudios médicos y atención personalizada en Santiago de Chile.",
+              image: "https://cimerchile.cl/og-image.jpg",
+              url: "https://cimerchile.cl",
+              telephone: "+56 2 1234 5678",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Av. Ejemplo 1234",
+                addressLocality: "Santiago",
+                addressRegion: "Región Metropolitana",
+                postalCode: "8320000",
+                addressCountry: "CL",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: -33.4489,
+                longitude: -70.6693,
+              },
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                  ],
+                  opens: "09:00",
+                  closes: "18:00",
+                },
+              ],
+              sameAs: [
+                "https://www.facebook.com/cimerchile",
+                "https://www.instagram.com/cimerchile",
+                "https://twitter.com/cimerchile",
+              ],
+            }),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
