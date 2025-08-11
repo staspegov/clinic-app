@@ -21,7 +21,6 @@ export default function HomePage() {
       <Hero/>
       <OurClient/>
       <Features/>
-      
       <Stats/>
       <About/>
       <Testimonios/>
