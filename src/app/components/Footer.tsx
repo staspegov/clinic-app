@@ -1,8 +1,15 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
 
 export default function Footer() {
+  const [year, setYear] = useState<string>(''); // vacío para que SSR y cliente coincidan
+
+  useEffect(() => {
+    setYear(String(new Date().getFullYear())); // solo se calcula en cliente
+  }, []);
+
   // Smooth scroll handler
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -81,7 +88,7 @@ export default function Footer() {
 
       {/* Línea inferior */}
       <div className="border-t border-emerald-800 mt-8 pt-4 text-center text-sm text-emerald-200">
-        &copy; {new Date().getFullYear()} CIMER Chile. Todos los derechos reservados.
+        &copy; <span suppressHydrationWarning>{year}</span> CIMER Chile. Todos los derechos reservados.
       </div>
     </footer>
   );
